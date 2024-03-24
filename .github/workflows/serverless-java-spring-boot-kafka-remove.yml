@@ -1,0 +1,46 @@
+name: 🧨 Remove SpringBoot Lambda Application
+run-name: Remove from ${{ inputs.env }} by @${{ github.actor }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      env:
+        default: dev
+        type: choice
+        description: Target environment to deploy the function to
+        options:
+          - dev
+          - stg
+          - prd
+        required: true
+
+defaults:
+  run:
+    working-directory: ./
+
+jobs:
+  remove:
+    name: Remove
+    runs-on: ubuntu-latest
+    steps:
+      - id: checkout
+        name: Checkout
+        uses: actions/checkout@v4
+
+      - id: configure-aws-credentials
+        name: Set AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-central-1
+
+      - id: build-node-modules
+        name: Install Node Dependencies
+        run: make install
+
+      - id: remove
+        name: Remove the Function from AWS
+        run: make remove
+        env:
+          ENVIRONMENT: ${{ inputs.env }}

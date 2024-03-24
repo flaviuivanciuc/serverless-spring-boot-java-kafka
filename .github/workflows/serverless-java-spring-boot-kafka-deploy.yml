@@ -1,0 +1,57 @@
+name: 🚀 Deploy SpringBoot Lambda Application
+run-name: Deploy to ${{ inputs.env }} by @${{ github.actor }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      env:
+        default: dev
+        type: choice
+        description: Target environment to deploy the function to
+        options:
+          - dev
+          - stg
+          - prd
+        required: true
+
+defaults:
+  run:
+    working-directory: ./
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - id: checkout
+        name: Checkout
+        uses: actions/checkout@v4
+
+      - id: build-node-modules
+        name: Install Node Dependencies
+        run: make install
+
+      - id: setup-java
+        name: Setup Java Version
+        uses: actions/setup-java@v4
+        with:
+          java-version: 17
+          distribution: adopt
+
+      - id: build-gradle
+        name: Build Gradle Project
+        run: make build-app
+
+      - id: configure-aws-credentials
+        name: Set AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-central-1
+
+      - id: deploy
+        name: Deploy the Function to AWS
+        run: make deploy
+        env:
+          ENVIRONMENT: ${{ inputs.env }}
