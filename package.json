@@ -1,0 +1,12 @@
+{
+  "name": "serverless-java-spring-boot-kafka",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Flaviu Ivanciuc",
+  "license": "ISC",
+  "dependencies": {
+    "serverless": "^3.38.0"
+  }
+}

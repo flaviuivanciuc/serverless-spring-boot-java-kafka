@@ -1,0 +1,20 @@
+service: serverless-java-spring-boot-kafka
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: java17
+  stage: dev
+  region: eu-central-1
+
+package:
+  artifact: build/libs/serverless-java-spring-boot-kafka-0.0.1-SNAPSHOT-aws.jar
+
+functions:
+  posts:
+    handler: org.springframework.cloud.function.adapter.aws.FunctionInvoker::handleRequest
+    snapStart: true
+    logRetentionInDays: 1
+    events:
+      - httpApi: '*'

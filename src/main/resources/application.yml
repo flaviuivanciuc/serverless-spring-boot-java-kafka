@@ -1,3 +1,7 @@
 spring:
   application:
     name: serverless-java-spring-boot-kafka
+
+  cloud:
+    function:
+      definition: pollMessageFromKafka

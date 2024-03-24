@@ -28,6 +28,8 @@ repositories {
 }
 
 extra["springCloudVersion"] = "2023.0.0"
+extra["awsServerlessJavaContainerSpringVersion"] = "2.0.0"
+extra["awsLambdaJavaEventsVersion"] = "3.11.4"
 
 tasks.assemble {
     dependsOn(tasks.thinJar, tasks.shadowJar)
@@ -54,7 +56,9 @@ tasks.shadowJar {
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter")
-    implementation("org.springframework.cloud:spring-cloud-function-context")
+    implementation("com.amazonaws:aws-lambda-java-events:${property("awsLambdaJavaEventsVersion")}")
+    implementation("org.springframework.cloud:spring-cloud-function-adapter-aws")
+    implementation("com.amazonaws.serverless:aws-serverless-java-container-springboot3:${property("awsServerlessJavaContainerSpringVersion")}")
     implementation("org.springframework.kafka:spring-kafka")
     compileOnly("org.projectlombok:lombok")
     annotationProcessor("org.projectlombok:lombok")
