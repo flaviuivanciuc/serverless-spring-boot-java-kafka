@@ -39,3 +39,6 @@ out/
 
 ### Serverless ###
 .serverless/
+
+### Node ###
+node_modules/
