@@ -12,9 +12,9 @@ package:
   artifact: build/libs/serverless-java-spring-boot-kafka-0.0.1-SNAPSHOT-aws.jar
 
 functions:
-  posts:
+  kafka:
     handler: org.springframework.cloud.function.adapter.aws.FunctionInvoker::handleRequest
     snapStart: true
     logRetentionInDays: 1
-    events:
-      - httpApi: '*'
+    environment:
+      MAIN_CLASS: com.serverlessjavaspringbootkafka.Application
