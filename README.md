@@ -1,18 +1,33 @@
-# AWS Lambda Application with Java 17 and SpringBoot 3
+# Kafka Consumer written in Java 17 and Spring Boot 3 on AWS Lambda
 
 SpringBoot project with Java 17 deployed to AWS Lambda using the Serverless Framework.
 The application context holds a @Bean named `pollMessageFromKafka` which serves as the function definition.
 Once an event of type `KafkaEvent` triggers the Lambda Function, the bean is being invoked and
 it processes the received message.
 
-## Local environment
+- [🏁 Getting started](#getting-started)
+  - [📋 Requirements](#requirements)
+    - [🔨 Local Setup](#local-setup)
+- [🚀 Deployment](#deployment)
+  - [Jobs](#jobs)
+- [🌥️ Cloud Environment](#cloud-environment)
+  - [🧪 Test AWS Lambda](#test-aws-lambda)
+- [📚 Useful Docs](#useful-docs)
 
-### Requirements
+<!-- TOC --><a name="getting-started"></a>
+
+## 🏁 Getting started
+
+<!-- TOC --><a name="requirements"></a>
+
+### 📋 Requirements
 
 - Java 17
 - Node
 
-#### Do
+<!-- TOC --><a name="local-setup"></a>
+
+#### 🔨 Local Setup
 
 1. Install Node Dependencies
 
@@ -32,22 +47,30 @@ make build-app
 make invoke-local
 ```
 
-## Deployment
+<!-- TOC --><a name="deployment"></a>
+
+## 🚀 Deployment
+
+<!-- TOC --><a name="jobs"></a>
 
 ### Jobs
 
-[🚀 Deploy](.github/workflows/serverless-java-spring-boot-kafka-deploy.yml)
+- [Deploy](.github/workflows/serverless-java-spring-boot-kafka-deploy.yml)
 
-[🧨 Remove](.github/workflows/serverless-java-spring-boot-kafka-remove.yml)
+- [Remove](.github/workflows/serverless-java-spring-boot-kafka-remove.yml)
 
 > 📒 Note
 >
 > Make sure to set both `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` to the Secrets and Variables Section of your
 > GitHub Repository
 
-## Cloud Environment
+<!-- TOC --><a name="cloud-environment"></a>
 
-### AWS Lambda Test
+## 🌥️ Cloud Environment
+
+<!-- TOC --><a name="test-aws-lambda"></a>
+
+### 🧪 Test AWS Lambda
 
 In the AWS Console Management 👉🏻 Lambda 👉🏻 Test Tab 👉🏻 paste the following snippet and execute the function:
 
@@ -67,19 +90,7 @@ In the AWS Console Management 👉🏻 Lambda 👉🏻 Test Tab 👉🏻 paste t
         "value": "SGVsbG8sIHRoaXMgaXMgYSB0ZXN0Lg==",
         "headers": [
           {
-            "headerKey": [
-              104,
-              101,
-              97,
-              100,
-              101,
-              114,
-              86,
-              97,
-              108,
-              117,
-              101
-            ]
+            "headerKey": [104, 101, 97, 100, 101, 114, 86, 97, 108, 117, 101]
           }
         ]
       }
@@ -89,6 +100,8 @@ In the AWS Console Management 👉🏻 Lambda 👉🏻 Test Tab 👉🏻 paste t
 ```
 
 This will trigger the Lambda Function using a look-a-like KafkaEvent event.
+
+<!-- TOC --><a name="useful-docs"></a>
 
 ## 📚 Useful Docs
 
